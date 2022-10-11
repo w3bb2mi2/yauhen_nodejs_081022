@@ -3,18 +3,18 @@
   <%- include("./partials/nav.ejs")%>
   <article>
     <div class="info">
-      <span><%= post.createdAt.toLocaleDateString() || "25/07/2022" %></span>
-      <span><%= post.author %></span>
+      <span><%= post?.createdAt?.toLocaleDateString() || "25/07/2022" %></span>
+      <span><%= post?.author %></span>
     </div>
-    <h1><%= post.title %></h1>
+    <h1><%= post?.title %></h1>
     <p>
-      <%= post.text %>
+      <%= post?.text %>
     </p>
     <a href="/edit/<%= post.id %>" class="btn-edit">
       <i class="fas fa-edit"></i>
     </a>
-    <button class="btn-delete" data-id="<%= post.id %>">
-      <i class="fas fa-trash-alt" data-id="<%= post.id%>"></i>
+    <button class="btn-delete" data-id="<%= post?.id %>">
+      <i class="fas fa-trash-alt" data-id="<%= post?.id%>"></i>
     </button>
   </article>
   <script>
