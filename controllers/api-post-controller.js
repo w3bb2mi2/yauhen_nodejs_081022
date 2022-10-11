@@ -1,17 +1,17 @@
 const Post = require("../models/post")
-const createPath = require("../helpers/create-path");
+
 const handleError = (res, error) => {
     console.log(error);
-    res.render(createPath("error"))
+    res.status(500).send(error)
 }
 const homePage = (req, res) => {
-    res.render(createPath('index'), );
+    
   }
 
 const getSinglePost = (req, res) => {
     Post
         .findById(req.params.id)
-        .then(post => res.render(createPath("post"), { post }))
+        .then(post=>res.status(200).json(post))
         .catch((error) => handleError(res, error))
 }
 
@@ -19,20 +19,18 @@ const getPosts = (req, res) => {
     Post
         .find()
         .sort({ createdAt: -1 })
-        .then(posts => res.render(createPath("posts"), { posts }))
+        .then(posts=>res.status(200).json(posts))
         .catch((error) => handleError(res, error))
 }
 
-const getAddPost = (req, res) => {
-    res.render(createPath("add-post"))
-}
+
 
 const addPost = (req, res) => {
     const { title, author, text } = req.body;
     const post = new Post({ title, author, text })
     post
         .save()
-        .then(() => res.redirect("/posts"))
+        .then(post=>res.status(200).json(post))
         .catch((error) => handleError(res, error))
 }
 const editPost = (req, res) => {
@@ -40,23 +38,18 @@ const editPost = (req, res) => {
     const { id } = req.params;
     Post
         .findByIdAndUpdate(`${id}`, { title, author, text })
-        .then(() => res.redirect(`/posts/${id}`))
+        .then(post=>res.status(200).json(post))
         .catch((error) => handleError(res, error))
 
 }
 const deletePost = (req, res) => {
     Post
         .findByIdAndDelete(req.params.id)
-        .then(result => res.status(200))
-        .catch((error) => handleError(res, error))
-}
-const getEditPost = (req, res) => {
-    Post
-        .findById(req.params.id)
-        .then(post => res.render(createPath("edit-post"), { post }))
+        .then(() => res.status(200).json(req.params.id))
         .catch((error) => handleError(res, error))
 }
 
+
 module.exports = {
-    getSinglePost, getPosts, getAddPost, addPost, editPost, deletePost, getEditPost, homePage
+    getSinglePost, getPosts,  addPost, editPost, deletePost,  homePage
 }

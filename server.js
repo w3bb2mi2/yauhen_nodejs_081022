@@ -1,9 +1,8 @@
 const express = require("express");
 const app = express();
 const PORT = 3000;
-const path = require("path")
-const ejs = require("ejs")
-//const methodOverride = require("method-override")
+const postApiRoutes = require("./routes/api-post-routes")
+const methodOverride = require("method-override")
 //вывод в логи
 const morgan = require("morgan")
 
@@ -29,7 +28,7 @@ app.listen(PORT, "localhost", (error) => {
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use(express.static("styles"))
 app.use(express.urlencoded({ extended: false }))
-//app.use(methodOverride("_method"))
+app.use(methodOverride("_method"))
 
 
 app.get("/about-us", (req, res) => {
@@ -39,6 +38,7 @@ app.get("/about-us", (req, res) => {
 
 app.use(postRouter)
 app.use(contactRouter)
+app.use(postApiRoutes)
 
 app.use((req, res) => {
     res.render(404).sendFile(createPath("error"))
