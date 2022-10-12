@@ -35,11 +35,14 @@ app.get("/about-us", (req, res) => {
     res.render("/contacts");
     console.log("Redirectint to /contacts")
 });
-
+app.use(postApiRoutes)
 app.use(postRouter)
 app.use(contactRouter)
-app.use(postApiRoutes)
+
 
 app.use((req, res) => {
-    res.render(404).sendFile(createPath("error"))
+    console.log(req.query.id)
+    console.log("Произошла ошибка")
+    res.json({message: "произошла ошибка"})
+    //res.render(404).sendFile(createPath("error"))
 })

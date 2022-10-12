@@ -16,6 +16,7 @@ const getSinglePost = (req, res) => {
 }
 
 const getPosts = (req, res) => {
+    console.log(req)
     Post
         .find()
         .sort({ createdAt: -1 })
@@ -23,9 +24,8 @@ const getPosts = (req, res) => {
         .catch((error) => handleError(res, error))
 }
 
-
-
 const addPost = (req, res) => {
+    console.log("route addPost")
     const { title, author, text } = req.body;
     const post = new Post({ title, author, text })
     post
@@ -34,15 +34,17 @@ const addPost = (req, res) => {
         .catch((error) => handleError(res, error))
 }
 const editPost = (req, res) => {
+    console.log({req})
     const { title, author, text } = req.body;
     const { id } = req.params;
     Post
-        .findByIdAndUpdate(`${id}`, { title, author, text })
+        .findByIdAndUpdate(`${id}`, { title, author, text }, {new: true})
         .then(post=>res.status(200).json(post))
         .catch((error) => handleError(res, error))
 
 }
 const deletePost = (req, res) => {
+    console.log("deleted post")
     Post
         .findByIdAndDelete(req.params.id)
         .then(() => res.status(200).json(req.params.id))

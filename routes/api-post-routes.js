@@ -6,8 +6,8 @@ const { getSinglePost, getPosts,  addPost, editPost, deletePost  } = require("..
 router.get("/api/posts", getPosts)
 router.post("/api/post", addPost)
 router.get("/api/post/:id", getSinglePost)
-router.delete("api/post/:id", deletePost);
-router.put("api/edit/:id", editPost)
+router.delete("/api/post/:id", deletePost);
+router.put("/api/edit/:id", editPost)
 
 
 module.exports = router;

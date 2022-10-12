@@ -1,7 +1,7 @@
 <%- include("./partials/head.ejs") %>
 <body>
   <%- include("./partials/nav.ejs") %>
-  <form id="posts-form" method="post" action="/edit/<%= post.id %>?s_method=PUT">
+  <form id="posts-form" method="post" action="/edit/<%= post.id %>?_method=PUT">
     <div class="form-info">
       <label>Post Title
         <input type="text" name="title" value=" <%= post.title %>">
