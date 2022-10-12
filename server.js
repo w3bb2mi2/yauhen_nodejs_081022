@@ -20,7 +20,7 @@ mongoose
     .catch(e => console.log(e))
 
 app.set("view engine", "ejs")
-app.listen(PORT, "localhost", (error) => {
+app.listen(3000, "localhost", (error) => {
     error ? console.log(error) : console.log(`server has been started on port: ${PORT}`)
 })
 
